@@ -41,24 +41,29 @@
 
     <header class="container-fluid">
         <section class="row">
-            Moon Miner
+            <div class="text-center">
+                Moon Miner
+            </div>
+
         </section>
     </header>
 
 
     <main class="container-fluid">
-        <section class="row">
-
-            <div class="col-md-2 col-12">
+        <!-- *SECTION - make three pillars: upgrades draw, moon, and stats bar -->
+        <!-- make vh for this bulk of screen -->
+        <section class="row justify-content-between">
+            <!-- likely multiple div -->
+            <div class="col-md-2 col-12 order-md-0 order-1">
                 Draw upgrades here
             </div>
-
-            <div class="col-md-6 col-12">
-                The moon
+            <div class="col-md-6 col-12 text-center">
+                <img id="target" src="https://media.tenor.com/Axp-XVAbVWMAAAAC/full-moon.gif" onclick="mine()" alt="">
             </div>
 
-            <div class="col-md-3 col-12">
-
+            <div id="updateStats" class="col-md-3 col-12">
+                <div>Total Mined: <span id="totalMined"></span></div>
+                <div></div>
             </div>
 
 
@@ -67,19 +72,71 @@
     </main>
 
 
-    <footer class="container-fluid">
+    <footer class="container-fluid mx-0">
+        <div class="row text-center">
+            Name
 
+        </div>
         <section class="row">
 
+            <div class="col-md-3 col-12">
+                <div class=""> Pickaxes:
+                    <span id="totalPickaxes"></span>
+                </div>
+                <button onclick="buyPickaxe()">
+                    Buy Pickaxe
+                </button>
+                $<span id="costNext"></span>
+
+                <div class="col-md-3 col-12">
+                    Trips to Smithy: <span id="pickaxePower"></span>
+
+                </div>
+                <button onclick="pickaxePower()">
+                    Reforge
+                </button>
+                $<span id="costNextForge"></span>
+            </div>
+
+            <div class="col-md-3 col-12">
+                <div class="">
+                    recruits/intervals
+                    <img src="" alt="">
+                </div>
+                <button>
+                    Buy
+                </button>
+                <div class="col-md-3 col-12">
+                    other recruits/int
+                </div>
+                <button>
+                    Buy
+                </button>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="">
+                    recruits/intervals
+                </div>
+                <button>
+                    Buy
+                </button>
+                <div class="col-md-6 col-12">
+                    other recruits/int
+                </div>
+                <button>
+                    Buy
+                </button>
+            </div>
         </section>
-
-        <section class="row">
-
-
-        </section>
-
     </footer>
 
+
+
+
+
+
+    <script src="main.js"></script>
 </body>
 
 </html>
