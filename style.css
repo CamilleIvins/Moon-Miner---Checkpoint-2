@@ -1,3 +1,45 @@
+:root {
+    --bgFooter: #aaaaaa;
+
+}
+
+
+body.img {
+    background-image: url(https://images.unsplash.com/photo-1612158560555-34306ad5e77c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80);
+    object-fit: cover;
+}
+
+
+footer {
+    background-color: var(--bgFooter);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+
+
+.autos-card {
+    height: 15vh;
+
+}
+
+.icon {
+    height: 50px;
+}
+
+#target {
+    filter: hue-rotate(137deg);
+}
+
+.text-special {
+    font-family: 'Bagel Fat One', cursive;
+}
+
+/* img {
+    height: 20vh;
+} */
+
+
 /* gis storage
 Penguin
 https://media2.giphy.com/media/jbVIvd88wslIepMC1e/giphy.gif?cid=ecf05e47s28t40macs7wnrdqry65ki4r0pas33bxyr45bm9n&ep=v1_stickers_search&rid=giphy.gif&ct=s

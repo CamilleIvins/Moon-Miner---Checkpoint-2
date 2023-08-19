@@ -10,9 +10,9 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&family=Laila:wght@500&family=Montserrat:ital,wght@1,300&family=Pacifico&family=Quintessential&family=Tangerine:wght@700&family=Tektur&family=Vollkorn&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&family=Laila:wght@500&family=Montserrat:ital,wght@1,300&family=Pacifico&family=Bagel+Fat+One&family=Tangerine:wght@700&family=Tektur&family=Vollkorn&display=swap"
         rel="stylesheet">
-
+    <link rel="stylesheet" href="style.css">
 
     <title>Moon Miner</title>
 </head>
@@ -37,33 +37,45 @@
 
 
 
-<body class="debug">
+<body class="debug img">
 
     <header class="container-fluid">
         <section class="row">
             <div class="text-center">
-                Moon Miner
+                <span class="text-white">
+                    <h1 class="text-special">Mine, Mine, Mine Miner <span> <img class="icon"
+                                src="https://media4.giphy.com/media/dvxXhnsBGWnFJ5S9Ei/giphy.gif?cid=ecf05e4792tnxqqrs9dkhdtmqayn8pc51ohivjoyldgjjite&ep=v1_stickers_search&rid=giphy.gif&ct=s">
+                        </span></h1>
+                </span>
+
             </div>
 
         </section>
     </header>
 
 
-    <main class="container-fluid">
+    <main class="container-fluid text-white">
         <!-- *SECTION - make three pillars: upgrades draw, moon, and stats bar -->
         <!-- make vh for this bulk of screen -->
         <section class="row justify-content-between">
             <!-- likely multiple div -->
             <div class="col-md-2 col-12 order-md-0 order-1">
-                Draw upgrades here
+
+                <div id="drawPenguin"></div>
+                <div id="drawFleet"></div>
+                <div id="draw"></div>
             </div>
             <div class="col-md-6 col-12 text-center">
-                <img id="target" src="https://media.tenor.com/Axp-XVAbVWMAAAAC/full-moon.gif" onclick="mine()" alt="">
+                <img id="target"
+                    src="https://media3.giphy.com/media/0DPpTJnXxmUHZGA8ez/giphy.gif?cid=ecf05e47cbhsuxnr881ixbwg7c01dj4w654zc92an9mmnjl7&ep=v1_stickers_search&rid=giphy.gif&ct=s"
+                    onclick="mine()" alt="">
             </div>
 
             <div id="updateStats" class="col-md-3 col-12">
                 <div>Total Mined: <span id="totalMined"></span></div>
-                <div></div>
+                <div>Mined Per Click: <span id="minedPerClick"></span></div>
+                <div>Auto Mining: <span id="autoMining"></span></div>
+
             </div>
 
 
@@ -73,7 +85,7 @@
 
 
     <footer class="container-fluid mx-0">
-        <div class="row text-center">
+        <div class="text-center">
             Name
 
         </div>
@@ -99,11 +111,10 @@
             </div>
 
             <div class="col-md-3 col-12">
-                <div class="">
-                    recruits/intervals
-                    <img src="" alt="">
+                <div>
+                    The Winter Warrior x<span id="autos"></span>
                 </div>
-                <button>
+                <button onclick="buyRover()">
                     Buy
                 </button>
                 <div class="col-md-3 col-12">
@@ -116,9 +127,9 @@
 
             <div class="col-md-6 col-12">
                 <div class="">
-                    recruits/intervals
+                    Her Henship x<span id="autos"></span>
                 </div>
-                <button>
+                <button onclick="polishFleet()">
                     Buy
                 </button>
                 <div class="col-md-6 col-12">
