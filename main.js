@@ -33,7 +33,7 @@ let automaticUpgrades = [
 
 // *FIXME - this needs serious refactoring, hahaha
 
-let cheese = 10000
+let cheese = 1000
 
 
 function mine() {
@@ -111,6 +111,7 @@ function buyRover() {
     //   ^DRAW EACH ALLY OUT IN OWN FUNCTION <-- PHOTOS MESS UP OTHERWISE
 
     drawRover()
+    updateStats()
 }
 
 function polishFleet() {
@@ -120,27 +121,27 @@ function polishFleet() {
         fleet.quantity++
         cheese = cheese - fleet.price
         fleet.price = (fleet.price * 7.1).toFixed(0)
+        let rover = automaticUpgrades.find(upgrade => upgrade.name = 'rover')
+
+        rover.multiplier = rover.quantity * (rover.multiplier + fleet.multiplier)
         console.log("Wax on, wax off");
     } else if (cheese < fleet.price) {
         window.alert("Have you tried our competitors?")
         console.log("Still striving")
     }
-    let rover = automaticUpgrades.find(upgrade => upgrade.name = 'rover')
-
-    rover.multiplier = rover.quantity * (rover.multiplier + fleet.multiplier)
     drawFleet()
     updateStats()
 }
 
 //  will need get elem by id to be placed correctly
 
-function applyRover() {
-    let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
-    if (rover.quantity > 0) {
-        cheese += rover.multiplier
-    }
-    updateStats()
-}
+// function applyRover() {
+//     let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
+//     if (rover.quantity > 0) {
+//         cheese += rover.multiplier
+//     }
+//     updateStats()
+// }
 
 // function buyAutos(upgradeName) {
 
@@ -160,14 +161,6 @@ function applyRover() {
 //     updateStats()
 // }
 
-// function applyAutos() {
-//     let autoPower = 0
-//     automaticUpgrades.forEach(auto => autoPower == auto.quantity * auto.multiplier)
-//     cheese += autoPower
-//     console.log(autoPower);
-//     document.getElementById('autoMining').innerText = autoPower.toString()
-
-// }
 // * FIXME - collective draw
 function drawRover() {
 
@@ -176,7 +169,7 @@ function drawRover() {
     let rover = automaticUpgrades.find(auto => auto.name == 'rover')
     if (rover.quantity >= 1) {
         autosTemplate += `
-<div class="col-3 text-center">
+        <div class="col-3 text-center">
 <div>${rover.name}</div>
 <img class="autos-card" src="${rover.img}" alt="">
 </div>
@@ -193,10 +186,10 @@ function drawFleet() {
     let fleet = automaticUpgrades.find(auto => auto.name == 'fleet')
     if (fleet.quantity >= 1) {
         autosTemplate += `
-<div class="col-3 text-center">
-<div>${fleet.name}</div>
-<img class="autos-card" src="${fleet.img}" alt="">
-</div>
+        <div class="col-3 text-center">
+        <div>${fleet.name}</div>
+        <img class="autos-card" src="${fleet.img}" alt="">
+        </div>
 `
 
     }
@@ -222,6 +215,35 @@ function drawFleet() {
 // #endregion
 
 // maybe separate click and auto stats
+function applyAutos() {
+    let autoPower = 0
+    // for (let i = 0; i <= automaticUpgrades.length; i++) {
+    //     let upgrade = automaticUpgrades[i]
+    //     autoPower += upgrade.quantity * upgrade.multiplier
+    // }
+    debugger
+    // cheese += autoPower
+
+    automaticUpgrades.forEach(auto => {
+        if (auto.quantity <= 1) {
+            autoPower += auto.multiplier * auto.quantity
+            // cheese += autoPower
+            // document.getElementById('autoMining').innerText = autoPower.toString()
+        }
+        else if (auto.quantity > 1) {
+            autoPower += auto.multiplier
+        }
+        cheese += autoPower
+        document.getElementById('autoMining').innerText = autoPower.toString()
+    }
+    )
+    // autoPower == auto.quantity * auto.multiplier)
+    cheese += autoPower
+    console.log(autoPower);
+
+    updateStats()
+}
+
 function updateStats() {
     let pickaxe = clickUpgrades.find(upgrade => upgrade.name == 'pickaxe')
     let titanium = clickUpgrades.find(upgrade => upgrade.name == 'titanium')
@@ -244,8 +266,8 @@ function updateStats() {
     document.getElementById('costNext').innerText = pickaxe.price.toString()
     document.getElementById('costNextForge').innerText = titanium.price.toString()
 
-    // document.getElementById('penguinTotal').innerText = rover.quantity.toString()
-    // document.getElementById('fleetTotal').innerText = fleet.quantity.toString()
+    document.getElementById('penguinTotal').innerText = rover.quantity.toString()
+    document.getElementById('fleetTotal').innerText = fleet.quantity.toString()
     ///find latest cheese count
     // draw updated cheese count to screen
     // let keyStatsElem = document.getElementById('updateStats')
@@ -256,7 +278,7 @@ function updateStats() {
 }
 
 
-// setInterval(applyAutos, 3000)
+setInterval(applyAutos, 10000)
 // if (pickaxe.quantity % 4 == 0) {
 //     pickaxe.multiplier = (pickaxe.multiplier * 1.5)
 // }
