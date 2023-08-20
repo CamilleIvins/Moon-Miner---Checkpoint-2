@@ -37,7 +37,7 @@ let automaticUpgrades = [
 let purchase =
 {
     name: 'sashimi',
-    price: 8000,
+    price: 1800,
     quantity: 0,
 
     img: 'https://media0.giphy.com/media/XIoaQjPAWLITuiz2XN/giphy.gif?cid=ecf05e47vl18pfz6bh8yc8uhsy25nnbqwgd8b94tj6j6ji0j&ep=v1_stickers_search&rid=giphy.gif&ct=s'
@@ -186,7 +186,7 @@ function buySpeargun() {
         speargun.quantity++
         caviar = caviar - speargun.price
         if (speargun.price < 10000) {
-            speargun.price = ((speargun.price * 2) ** 1.2).toFixed(0)
+            speargun.price = ((speargun.price * 1.9) ** 1.2).toFixed(0)
         } else if (speargun.price >= 10000) { speargun.price = ((speargun.price * 2) ** 1.2).toExponential(4) }
 
 
@@ -205,7 +205,7 @@ function speargunPower() {
         speargunPower.quantity++
         caviar = caviar - speargunPower.price
         if (speargunPower.price < 10000) {
-            speargunPower.price = ((speargunPower.price * 2.3) ** 1.5).toFixed(0)
+            speargunPower.price = ((speargunPower.price * 2.1) ** 1.3).toFixed(0)
         } else if (speargunPower.price >= 10000) { speargunPower.price = ((speargunPower.price * 2.3) ** 1.5).toExponential(4) }
 
         console.log('reforged ax life')
@@ -249,9 +249,9 @@ function buyPenguin() {
         penguin.quantity++
         caviar = caviar - penguin.price
         if (penguin.price < 10000) {
-            penguin.price = (penguin.price * 2.8).toFixed(0)
+            penguin.price = (penguin.price * 2.1).toFixed(0)
         } else if (penguin.price >= 10000) {
-            penguin.price = (penguin.price * 2.8).toExponential(4)
+            penguin.price = (penguin.price * 2.1).toExponential(4)
         }
         console.log("Expanding into the managerial class")
     } else if (caviar < penguin.price) {
@@ -274,13 +274,13 @@ function polishFleet() {
         fleet.quantity++
         caviar = caviar - fleet.price
         if (fleet.price < 10000) {
-            fleet.price = (fleet.price * 6.8).toFixed(0)
+            fleet.price = (fleet.price * 5.9).toFixed(0)
         } else if (fleet.price >= 10000) {
-            fleet.price = (fleet.price * 6.8).toExponential(4)
+            fleet.price = (fleet.price * 5.9).toExponential(4)
         }
         let penguin = automaticUpgrades.find(upgrade => upgrade.name = 'penguin')
 
-        penguin.multiplier = penguin.multiplier + (fleet.quantity * (fleet.booster) ** 1.8)
+        penguin.multiplier = penguin.multiplier + (fleet.quantity * (fleet.booster) ** 2.1)
         console.log("Wax on, wax off");
     } else if (caviar < fleet.price) {
         window.alert("Have you tried our competitors?")
