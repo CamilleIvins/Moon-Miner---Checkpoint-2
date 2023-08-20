@@ -26,22 +26,24 @@ let automaticUpgrades = [
         name: 'fleet',
         price: 2000,
         quantity: 0,
-        multiplier: 10,
+        multiplier: 0,
+        booster: 10,
         img: 'https://media4.giphy.com/media/WbV12NEGCooYOYkm07/giphy.gif?cid=ecf05e47a2tr7bodu3qa2vi5utkad20uyasr6vfcq6h244m1&ep=v1_stickers_search&rid=giphy.gif&ct=s'
     }
 ];
 
 // *FIXME - this needs serious refactoring, hahaha
 
-let cheese = 1000
+let cheese = 100000
 
 
 function mine() {
-    let pickaxePower = 1
+    let clickPower = 1
+    let pickaxePower = 0
 
     clickUpgrades.forEach(upgrade => pickaxePower += upgrade.multiplier * upgrade.quantity)
-    console.log(pickaxePower)
-    cheese += pickaxePower
+    console.log(clickPower, pickaxePower)
+    cheese += clickPower + pickaxePower
     // cheese += pickaxePower.multiplier
     // console.log('clicking moon')
 
@@ -106,7 +108,7 @@ function buyRover() {
         console.log("Back to the grind")
     }
 
-    rover.multiplier = rover.multiplier * rover.quantity
+    // rover.multiplier = rover.multiplier * rover.quantity
     // *FIXME - need to add draw or update functions and stats, probably both
     //   ^DRAW EACH ALLY OUT IN OWN FUNCTION <-- PHOTOS MESS UP OTHERWISE
 
@@ -123,7 +125,7 @@ function polishFleet() {
         fleet.price = (fleet.price * 7.1).toFixed(0)
         let rover = automaticUpgrades.find(upgrade => upgrade.name = 'rover')
 
-        rover.multiplier = rover.quantity * (rover.multiplier + fleet.multiplier)
+        rover.multiplier = rover.multiplier + (fleet.quantity * fleet.booster)
         console.log("Wax on, wax off");
     } else if (cheese < fleet.price) {
         window.alert("Have you tried our competitors?")
@@ -221,24 +223,27 @@ function applyAutos() {
     //     let upgrade = automaticUpgrades[i]
     //     autoPower += upgrade.quantity * upgrade.multiplier
     // }
-    debugger
-    // cheese += autoPower
 
-    automaticUpgrades.forEach(auto => {
-        if (auto.quantity <= 1) {
-            autoPower += auto.multiplier * auto.quantity
+    // cheese += autoPower
+    let rover = automaticUpgrades.find(auto => auto.name == 'rover')
+    // automaticUpgrades.forEach(auto =>
+    {
+        if (rover.quantity >= 1) {
+            autoPower += rover.multiplier * rover.quantity
             // cheese += autoPower
             // document.getElementById('autoMining').innerText = autoPower.toString()
+            cheese += autoPower
         }
-        else if (auto.quantity > 1) {
-            autoPower += auto.multiplier
-        }
-        cheese += autoPower
-        document.getElementById('autoMining').innerText = autoPower.toString()
+        // else if (rover.quantity > 1) {   }
+        //     autoPower += rover.multiplier }<---back when I tried to combine auto upgrades
+        //     cheese += autoPower          }
+        // }
+        // debugger
     }
-    )
+
+    document.getElementById('autoMining').innerText = autoPower.toString()
     // autoPower == auto.quantity * auto.multiplier)
-    cheese += autoPower
+    // cheese += autoPower
     console.log(autoPower);
 
     updateStats()
@@ -249,14 +254,14 @@ function updateStats() {
     let titanium = clickUpgrades.find(upgrade => upgrade.name == 'titanium')
     let rover = automaticUpgrades.find(auto => auto.name == 'rover')
     let fleet = automaticUpgrades.find(auto => auto.name == 'fleet')
-
+    let clickPower = 1
 
     // clickUpgrades.forEach(upgrade => upgrade.multiplier == rover.multiplier + fleet.multiplier)
     // document.getElementById('autos').innerText = clickUpgrades.toString()
     //  ^ try to get this to work later in refactoring
-
+    // debugger
     document.getElementById('totalMined').innerText = cheese.toString()
-    document.getElementById('minedPerClick').innerText = pickaxe.multiplier.toString()
+    document.getElementById('minedPerClick').innerText = (clickPower + (pickaxe.quantity * pickaxe.multiplier)).toString()
     // document.getElementById('autoMining').innerText = ((rover.multiplier) + (fleet.multiplier)).toString()
 
 
@@ -278,7 +283,7 @@ function updateStats() {
 }
 
 
-setInterval(applyAutos, 10000)
+setInterval(applyAutos, 7000)
 // if (pickaxe.quantity % 4 == 0) {
 //     pickaxe.multiplier = (pickaxe.multiplier * 1.5)
 // }
