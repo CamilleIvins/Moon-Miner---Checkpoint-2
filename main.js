@@ -32,6 +32,15 @@ let automaticUpgrades = [
     }
 ];
 
+let purchase =
+{
+    name: 'sashimi',
+    price: 10000,
+    quantity: 0,
+
+    img: 'https://media0.giphy.com/media/XIoaQjPAWLITuiz2XN/giphy.gif?cid=ecf05e47vl18pfz6bh8yc8uhsy25nnbqwgd8b94tj6j6ji0j&ep=v1_stickers_search&rid=giphy.gif&ct=s'
+}
+
 // *FIXME - this needs serious refactoring, hahaha
 
 let cheese = 100000
@@ -90,11 +99,26 @@ function pickaxePower() {
     updateStats()
 }
 
+function buySashimi() {
+    if (cheese >= purchase.price) {
+        purchase.quantity++
+        cheese = cheese - purchase.price
+        purchase.price = (purchase.price * 7)
+        console.log("Opera-goers sing your praises");
+    }
+    else if (cheese < purchase.price) {
+        window.alert("You can't serve such a trifling amount to opera-goers!")
+        console.log("We cast at dawn!");
+    }
+    debugger
+    drawSashimi()
+    updateStats()
+}
 // #endregion
 
 
 
-// #region - autos
+// #region - buy autos
 
 function buyRover() {
     let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
@@ -134,6 +158,8 @@ function polishFleet() {
     drawFleet()
     updateStats()
 }
+// #endregion
+
 
 //  will need get elem by id to be placed correctly
 
@@ -163,7 +189,7 @@ function polishFleet() {
 //     updateStats()
 // }
 
-// * FIXME - collective draw
+// * FIXME - collective draw (failed)
 function drawRover() {
 
 
@@ -197,6 +223,20 @@ function drawFleet() {
     }
     document.getElementById('drawFleet').innerHTML = autosTemplate
 }
+
+function drawSashimi() {
+    let purchaseTemplate = ``
+    if (purchase.quantity >= 1) {
+        purchaseTemplate +=
+            `
+        <div class="col-3 text-center">
+        <div>${purchase.name}</div>
+        <img class="autos-card" src="${purchase.img}" alt="">
+        </div>
+        `
+    }
+    document.getElementById('drawSashimi').innerHTML = purchaseTemplate
+}
 // function drawAutos() {
 
 
@@ -213,10 +253,11 @@ function drawFleet() {
 //     })
 //     document.getElementById('drawAutos').innerHTML = autosTemplate
 // }
-
 // #endregion
 
+
 // maybe separate click and auto stats
+
 function applyAutos() {
     let autoPower = 0
     // for (let i = 0; i <= automaticUpgrades.length; i++) {
@@ -234,9 +275,9 @@ function applyAutos() {
             // document.getElementById('autoMining').innerText = autoPower.toString()
             cheese += autoPower
         }
-        // else if (rover.quantity > 1) {   }
-        //     autoPower += rover.multiplier }<---back when I tried to combine auto upgrades
-        //     cheese += autoPower          }
+        // else if (rover.quantity > 1) {      }
+        //     autoPower += rover.multiplier    }<---back when I tried to combine auto upgrades
+        //     cheese += autoPower             }
         // }
         // debugger
     }
@@ -270,9 +311,14 @@ function updateStats() {
 
     document.getElementById('costNext').innerText = pickaxe.price.toString()
     document.getElementById('costNextForge').innerText = titanium.price.toString()
+    document.getElementById('costNextPenguin').innerText = rover.price.toString()
+    document.getElementById('costNextShip').innerText = fleet.price.toString()
+    document.getElementById('costNextSashimi').innerText = purchase.price.toString()
 
     document.getElementById('penguinTotal').innerText = rover.quantity.toString()
     document.getElementById('fleetTotal').innerText = fleet.quantity.toString()
+    document.getElementById('sashimiTotal').innerText = purchase.quantity.toString()
+
     ///find latest cheese count
     // draw updated cheese count to screen
     // let keyStatsElem = document.getElementById('updateStats')
@@ -283,7 +329,7 @@ function updateStats() {
 }
 
 
-setInterval(applyAutos, 7000)
+setInterval(applyAutos, 3000)
 // if (pickaxe.quantity % 4 == 0) {
 //     pickaxe.multiplier = (pickaxe.multiplier * 1.5)
 // }

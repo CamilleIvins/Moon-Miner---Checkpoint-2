@@ -54,16 +54,17 @@
     </header>
 
 
-    <main class="container-fluid text-white">
+
+    <main class="container-fluid text-white text-general">
         <!-- *SECTION - make three pillars: upgrades draw, moon, and stats bar -->
         <!-- make vh for this bulk of screen -->
-        <section class="row justify-content-between">
+        <section class="row justify-content-between mx-0">
             <!-- likely multiple div -->
-            <div class="col-md-2 col-12 order-md-0 order-1">
+            <div class="col-md-2 col-3 order-md-0 order-1">
 
-                <div id="drawPenguin"></div>
                 <div id="drawFleet"></div>
-                <div id="draw"></div>
+                <div id="drawPenguin"></div>
+
             </div>
             <div class="col-md-6 col-12 text-center">
                 <img id="target"
@@ -71,7 +72,7 @@
                     onclick="mine()" alt="">
             </div>
 
-            <div id="updateStats" class="col-md-3 col-12">
+            <div id="updateStats" class="col-md-3 col-12 fs-4">
                 <div>Total Mined: <span id="totalMined">0</span></div>
                 <div>Mined Per Click: <span id="minedPerClick">1</span></div>
                 <div>Auto Mining: <span id="autoMining">0</span>/3s</div>
@@ -80,67 +81,77 @@
 
 
         </section>
+        <section class="row text-center justify-content-center">
+
+            <h2 class="col-md-5 col-10 my-0 signage">
+                All that is Mine
+            </h2>
+        </section>
+
+        <section class="row shop-card">
+
+
+            <div class="row justify-content-between">
+                <div class="col-2 py-2">
+                    <h4 class=""> Pickaxes:
+                        <span id="totalPickaxes"></span>
+                    </h4>
+                    <button onclick="buyPickaxe()">
+                        Buy Pickaxe
+                    </button>
+                    $<span id="costNext"></span>
+
+                    <h4 class=" py-2">
+                        Trips to Smithy: <span id="pickaxePower"></span>
+
+                    </h4>
+                    <button onclick="pickaxePower()">
+                        Reforge
+                    </button>
+                    $<span id="costNextForge"></span>
+                </div>
+
+                <div class="col-3 py-2">
+                    <h4 class="">
+                        The Winter Warrior x<span id="penguinTotal"></span>
+                    </h4>
+                    <button onclick="buyRover()">
+                        Buy
+                    </button>
+                    $<span id="costNextPenguin"></span>
+                    <h4 class="py-2">
+                        Her Henship x<span id="fleetTotal"></span>
+                    </h4>
+                    <button onclick="polishFleet()">
+                        Buy
+                    </button>
+                    $<span id="costNextShip"></span>
+                </div>
+
+                <div class="col-3 py-2">
+                    <h4 class="">
+                        Feed Opera-goers x<span id="sashimiTotal"></span>
+                    </h4>
+                    <button onclick="buySashimi()">
+                        Provide Sashimi
+                    </button>
+                    $<span id="costNextSashimi"></span>
+                    <div class="row" id="drawSashimi"></div>
+                    <!-- <h4 class="py-2">
+                        Her Henship x<span id="fleetTotal"></span>
+                    </h4>
+                    <button onclick="polishFleet()">
+                        Buy
+                    </button>
+                </div> -->
+
+                </div>
+        </section>
 
     </main>
 
 
-    <footer class="container-fluid mx-0">
-        <div class="text-center">
-            All that is Mine
 
-        </div>
-        <section class="row">
-
-            <div class="col-md-3 col-12">
-                <div class=""> Pickaxes:
-                    <span id="totalPickaxes"></span>
-                </div>
-                <button onclick="buyPickaxe()">
-                    Buy Pickaxe
-                </button>
-                $<span id="costNext"></span>
-
-                <div class="col-md-3 col-12">
-                    Trips to Smithy: <span id="pickaxePower"></span>
-
-                </div>
-                <button onclick="pickaxePower()">
-                    Reforge
-                </button>
-                $<span id="costNextForge"></span>
-            </div>
-
-            <div class="col-md-3 col-12">
-                <div>
-                    The Winter Warrior x<span id="penguinTotal"></span>
-                </div>
-                <button onclick="buyRover()">
-                    Buy
-                </button>
-                <div class="col-md-3 col-12">
-                    other recruits/int
-                </div>
-                <button>
-                    Buy
-                </button>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <div class="">
-                    Her Henship x<span id="fleetTotal"></span>
-                </div>
-                <button onclick="polishFleet()">
-                    Buy
-                </button>
-                <div class="col-md-6 col-12">
-                    other recruits/int
-                </div>
-                <button>
-                    Buy
-                </button>
-            </div>
-        </section>
-    </footer>
 
 
 

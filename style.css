@@ -1,5 +1,7 @@
 :root {
-    --bgFooter: #aaaaaa;
+    --bgCard: #aaaaaaaf;
+    --pinkSky: #f3dadf;
+    --cloudySky: #e3e8ee;
 
 }
 
@@ -11,24 +13,46 @@ body {
     background-position: center;
 }
 
+section.shop-card {
+    font-size: small;
+}
 
-footer {
+h4 {
+    font-size: medium;
+}
+
+.item-card {
+    background-color: var(--bgCard);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* .sashimi-card {
+    justify-content: end;
+} */
+
+.shop-card {
     /* background-color: var(--bgFooter); */
-    background-image: url(https://images.unsplash.com/photo-1447953696461-df240a5320a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80);
+    background-image: url(https://images.unsplash.com/photo-1534680554819-83f7124bcfc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80);
     background-size: cover;
-    background-position: center border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    height: 25vh;
-    position: absolute;
+    background-position: center;
+    border-radius: 15px;
     bottom: 0;
+    color: black;
 }
 
 button {
     border-radius: 10px;
+    padding: 3px;
+}
+
+button:hover {
+    box-shadow: 0 0 10px 3px whitesmoke,
+        inset 0 0 10px 3px whitesmoke;
 }
 
 .autos-card {
-    height: 15vh;
+    height: 8vh;
 
 }
 
@@ -38,19 +62,73 @@ button {
 
 #target {
     filter: hue-rotate(137deg);
-    height: 25vh;
+    height: 35vh;
 }
 
 @media (min-width: 768px) {
+    button {
+        border-radius: 15px;
+        padding: .5em;
+    }
+
+    section.shop-card {
+        font-size: large;
+    }
 
     #target {
         filter: hue-rotate(137deg);
         height: 60vh;
     }
+
+    .autos-card {
+        height: 15vh;
+
+    }
+
+    .shop-card {
+        /* background-color: var(--bgFooter); */
+        background-image: url(https://images.unsplash.com/photo-1447953696461-df240a5320a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80);
+        background-size: cover;
+        background-position-y: 630px;
+        /* background-position: center; */
+        border-radius: 15px;
+        height: 40vh;
+        bottom: 0;
+    }
+
+    .signage {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        background-color: var(--pinkSky) !important;
+        color: black;
+        font-family: 'Bagel Fat One', cursive;
+        text-shadow: 0 1px 1px black;
+    }
+
+    .text-special {
+        font-family: 'Bagel Fat One', cursive;
+        text-shadow: 0 3px 7px black;
+        font-size: 54px;
+    }
+}
+
+.signage {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: var(--cloudySky);
+    color: black;
+    font-family: 'Bagel Fat One', cursive;
+    text-shadow: 0 1px 1px black;
+}
+
+.text-general {
+    font-family: 'IBM Plex Mono', monospace;
 }
 
 .text-special {
     font-family: 'Bagel Fat One', cursive;
+    text-shadow: 0 3px 7px black;
+    font-size: 36px;
 }
 
 /* img {
