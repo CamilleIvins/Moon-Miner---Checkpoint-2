@@ -42,10 +42,17 @@ let purchase =
 
     img: 'https://media0.giphy.com/media/XIoaQjPAWLITuiz2XN/giphy.gif?cid=ecf05e47vl18pfz6bh8yc8uhsy25nnbqwgd8b94tj6j6ji0j&ep=v1_stickers_search&rid=giphy.gif&ct=s'
 }
+
+let endGame =
+{
+    win: 'https://media3.giphy.com/media/bW7WgIA6WBxXVYAXub/giphy.gif?cid=ecf05e47hdof96ftfhcevpoyfak0qiymfw8qi8vhvxgywslz&ep=v1_gifs_related&rid=giphy.gif&ct=g',
+    lose: 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWs3MDV3NnYybHljcmlwMTV3N2NsZzY3Z2VseWlnaXR5b2swMjg0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/loSCq3ARI8HGnVAMqk/giphy.gif'
+}
+
 // #endregion
 // *FIXME - this needs serious refactoring, hahaha
 
-let fish = 0
+let caviar = 0
 let gameLength = 180000
 let timeRemaining = 0
 let clockID = 0
@@ -76,9 +83,9 @@ let clockID = 0
 function startGame() {
     // document.getElementById('target').classList.remove('hidden')
     // document.getElementById('upgrades').classList.remove('hidden')
-    // console.log("Let's go fishing!")
-    let fish = 0
-    document.getElementById('totalMined').innerText = fish.toString()
+    // console.log("Let's go caviaring!")
+    let caviar = 0
+    document.getElementById('totalMined').innerText = caviar.toString()
     clickUpgrades.forEach(upgrade => upgrade.quantity == 0)
     automaticUpgrades.forEach(upgrade => upgrade.quantity == 0)
     updateStats()
@@ -87,14 +94,17 @@ function startGame() {
 }
 
 function startClock() {
-    let fish = 0
+    let caviar = 0
     timeRemaining = gameLength
     drawClock()
     clockID = setInterval(drawClock, 1000)
+    // gameReset()
+    updateStats()
 }
 
 function stopClock() {
     clearInterval(clockID)
+
 }
 
 function drawClock() {
@@ -108,34 +118,41 @@ function stopGame() {
     let endTemplate = ``
 
     if (purchase.quantity >= 10) {
-        window.alert("Congratulations, you did it!")
         endTemplate += `
-        <img src="https://media3.giphy.com/media/bW7WgIA6WBxXVYAXub/giphy.gif?cid=ecf05e47hdof96ftfhcevpoyfak0qiymfw8qi8vhvxgywslz&ep=v1_gifs_related&rid=giphy.gif&ct=g">
+        <img src="${endGame.win}">
         `
+        confirm("Congratulations, you did it! Take your free tickets to closing night, let someone else handle the next run.")
+        document.location.reload()
+
     } else if (purchase.quantity < 10) {
-        window.alert("The director would like a word...")
         endTemplate += `
-        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWs3MDV3NnYybHljcmlwMTV3N2NsZzY3Z2VseWlnaXR5b2swMjg0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/loSCq3ARI8HGnVAMqk/giphy.gif">
+        <img src="${endGame.lose}">
         `
+        confirm("The director would like a word..., perhaps you can convince him to give you another shot?")
+        document.location.reload()
+
     }
-    document.getElementById('target').innerHTML = endTemplate
-    stopClock()
+    // document.getElementById('target').innerHTML = endTemplate
+    // stopClock()
 }
 
-// *FIXME - poorly functioning pass at logic
+// *FIXME - poorly functioning pass at logic that still doesn't work
 
-function gameReset() {
+// function gameReset() {
 
-    let fish = 0
-    document.getElementById('totalMined').innerText = fish.toString()
-    clickUpgrades.forEach(upgrade => upgrade.quantity = 0)
-    automaticUpgrades.forEach(upgrade => upgrade.quantity = 0)
-    // let countdownElem = document.getElementById('countdown')
-    // document.getElementById('autoMining').innerText = autoPower.toString()
-    // countdownElem.innerText = countdownElem.toString()
-    timeRemaining = gameLength
-    clearInterval(clockID)
-}
+//     let caviar = 0
+//     debugger
+//     document.getElementById('totalMined').innerText = caviar.toString()
+//     console.log(caviar)
+//     clickUpgrades.forEach(upgrade => upgrade.quantity = 0)
+//     automaticUpgrades.forEach(upgrade => upgrade.quantity = 0)
+//     // let countdownElem = document.getElementById('countdown')
+//     // document.getElementById('autoMining').innerText = autoPower.toString()
+//     // countdownElem.innerText = countdownElem.toString()
+//     timeRemaining = gameLength
+//     clearInterval(clockID)
+//     updateStats()
+// }
 // #endregion
 
 function mine() {
@@ -144,8 +161,8 @@ function mine() {
 
     clickUpgrades.forEach(upgrade => pickaxePower += upgrade.multiplier * upgrade.quantity)
     console.log(clickPower, pickaxePower)
-    fish += clickPower + pickaxePower
-    // fish += pickaxePower.multiplier
+    caviar += clickPower + pickaxePower
+    // caviar += pickaxePower.multiplier
     // console.log('clicking moon')
 
     updateStats()
@@ -159,14 +176,14 @@ function buyPickaxe() {
     //  if yes, increase quant
     // if no, window alert
     let pickaxe = clickUpgrades.find(upgrade => upgrade.name == 'pickaxe')
-    if (fish >= pickaxe.price) {
+    if (caviar >= pickaxe.price) {
 
         pickaxe.quantity++
-        fish = fish - pickaxe.price
+        caviar = caviar - pickaxe.price
         pickaxe.price = (pickaxe.price * 2.1).toFixed(0)
 
         console.log("did the buy")
-    } else if (fish < pickaxe.price) {
+    } else if (caviar < pickaxe.price) {
         window.alert("You're short on cheddar")
         console.log('buy failed');
     }
@@ -175,13 +192,13 @@ function buyPickaxe() {
 }
 function pickaxePower() {
     let pickaxePower = clickUpgrades.find(upgrade => upgrade.name == 'titanium')
-    if (fish >= pickaxePower.price) {
+    if (caviar >= pickaxePower.price) {
 
         pickaxePower.quantity++
-        fish = fish - pickaxePower.price
+        caviar = caviar - pickaxePower.price
         pickaxePower.price = (pickaxePower.price * 5.3).toFixed(0)
         console.log('reforged ax life')
-    } else if (fish < pickaxePower.price) {
+    } else if (caviar < pickaxePower.price) {
         window.alert('Too poor, more sore')
         console.log("Turned away at smithy's");
     }
@@ -192,17 +209,17 @@ function pickaxePower() {
 }
 
 function buySashimi() {
-    if (fish >= purchase.price) {
+    if (caviar >= purchase.price) {
         purchase.quantity++
-        fish = fish - purchase.price
+        caviar = caviar - purchase.price
         purchase.price = (purchase.price * 7)
         console.log("Opera-goers sing your praises");
     }
-    else if (fish < purchase.price) {
+    else if (caviar < purchase.price) {
         window.alert("You can't serve such a trifling amount to opera-goers!")
         console.log("We cast at dawn!");
     }
-    debugger
+
     drawSashimi()
     updateStats()
 }
@@ -214,12 +231,12 @@ function buySashimi() {
 
 function buyRover() {
     let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
-    if (fish >= rover.price) {
+    if (caviar >= rover.price) {
         rover.quantity++
-        fish = fish - rover.price
+        caviar = caviar - rover.price
         rover.price = (rover.price * 4.1).toFixed(0)
         console.log("Expanding into the managerial class")
-    } else if (fish < rover.price) {
+    } else if (caviar < rover.price) {
         window.alert("You're not ready to delegate work to others")
         console.log("Back to the grind")
     }
@@ -235,15 +252,15 @@ function buyRover() {
 function polishFleet() {
     let fleet = automaticUpgrades.find(upgrade => upgrade.name == 'fleet')
 
-    if (fish >= fleet.price) {
+    if (caviar >= fleet.price) {
         fleet.quantity++
-        fish = fish - fleet.price
+        caviar = caviar - fleet.price
         fleet.price = (fleet.price * 7.1).toFixed(0)
         let rover = automaticUpgrades.find(upgrade => upgrade.name = 'rover')
 
         rover.multiplier = rover.multiplier + (fleet.quantity * fleet.booster)
         console.log("Wax on, wax off");
-    } else if (fish < fleet.price) {
+    } else if (caviar < fleet.price) {
         window.alert("Have you tried our competitors?")
         console.log("Still striving")
     }
@@ -258,7 +275,7 @@ function polishFleet() {
 // function applyRover() {
 //     let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
 //     if (rover.quantity > 0) {
-//         fish += rover.multiplier
+//         caviar += rover.multiplier
 //     }
 //     updateStats()
 // }
@@ -266,12 +283,12 @@ function polishFleet() {
 // function buyAutos(upgradeName) {
 
 //     let autos = automaticUpgrades.find(upgrade => upgrade.name = upgradeName)
-//     if (fish >= autos.price) {
+//     if (caviar >= autos.price) {
 //         autos.quantity++
-//         fish = fish - autos.price
+//         caviar = caviar - autos.price
 //         autos.price = (autos.price * 4.1).toFixed(0)
 //         console.log("Expanding into the managerial class")
-//     } else if (fish < autos.price) {
+//     } else if (caviar < autos.price) {
 //         window.alert("You're not ready to delegate work to others")
 //         console.log("Back to the grind")
 //     }
@@ -357,27 +374,26 @@ function applyAutos() {
     //     autoPower += upgrade.quantity * upgrade.multiplier
     // }
 
-    // fish += autoPower
+    // caviar += autoPower
     let rover = automaticUpgrades.find(auto => auto.name == 'rover')
     // automaticUpgrades.forEach(auto =>
     {
         if (rover.quantity >= 1) {
             autoPower += rover.multiplier * rover.quantity
-            // fish += autoPower
+            // caviar += autoPower
             // document.getElementById('autoMining').innerText = autoPower.toString()
-            fish += autoPower
+            caviar += autoPower
         }
         // else if (rover.quantity > 1) {      }
         //     autoPower += rover.multiplier    }<---back when I tried to combine auto upgrades
-        //     fish += autoPower             }
+        //     caviar += autoPower             }
         // }
         // debugger
     }
 
     document.getElementById('autoMining').innerText = autoPower.toString()
     // autoPower == auto.quantity * auto.multiplier)
-    // fish += autoPower
-    console.log(autoPower);
+    // caviar += autoPower
 
     updateStats()
 }
@@ -393,7 +409,7 @@ function updateStats() {
     // document.getElementById('autos').innerText = clickUpgrades.toString()
     //  ^ try to get this to work later in refactoring
     // debugger
-    document.getElementById('totalMined').innerText = fish.toString()
+    document.getElementById('totalMined').innerText = caviar.toString()
     document.getElementById('minedPerClick').innerText = (clickPower + (pickaxe.quantity * pickaxe.multiplier)).toString()
     // document.getElementById('autoMining').innerText = ((rover.multiplier) + (fleet.multiplier)).toString()
 
@@ -411,11 +427,11 @@ function updateStats() {
     document.getElementById('fleetTotal').innerText = fleet.quantity.toString()
     document.getElementById('sashimiTotal').innerText = purchase.quantity.toString()
 
-    ///find latest fish count
-    // draw updated fish count to screen
+    ///find latest caviar count
+    // draw updated caviar count to screen
     // let keyStatsElem = document.getElementById('updateStats')
-    // keyStatsElem = `fish: ${fish}
-    // <div>fish Spent: Inset string w/ fish - purchases</div>
+    // keyStatsElem = `caviar: ${caviar}
+    // <div>caviar Spent: Inset string w/ caviar - purchases</div>
     // <div>Click Level: ${clickUpgrades.multiplier}</div>
     // <div></div>`
 }

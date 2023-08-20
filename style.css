@@ -83,6 +83,9 @@ button:hover {
     height: 35vh;
 }
 
+#updateStats {
+    font-size: 16px;
+}
 
 @media (min-width: 768px) {
     button {
@@ -100,6 +103,10 @@ button:hover {
 
     #target {
         height: 60vh;
+    }
+
+    #updateStats {
+        font-size: 20px;
     }
 
     .autos-card {
