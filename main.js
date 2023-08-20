@@ -2,7 +2,7 @@
 
 let clickUpgrades = [
     {
-        name: 'pickaxe',
+        name: 'speargun',
         price: 100,
         quantity: 0,
         multiplier: 1
@@ -18,10 +18,10 @@ let clickUpgrades = [
 
 let automaticUpgrades = [
     {
-        name: 'rover',
+        name: 'penguin',
         price: 600,
         quantity: 0,
-        multiplier: 20,
+        multiplier: 250,
         img: 'https://media2.giphy.com/media/jbVIvd88wslIepMC1e/giphy.gif?cid=ecf05e47s28t40macs7wnrdqry65ki4r0pas33bxyr45bm9n&ep=v1_stickers_search&rid=giphy.gif&ct=s'
     },
     {
@@ -29,7 +29,7 @@ let automaticUpgrades = [
         price: 2000,
         quantity: 0,
         multiplier: 0,
-        booster: 10,
+        booster: 1000,
         img: 'https://media4.giphy.com/media/WbV12NEGCooYOYkm07/giphy.gif?cid=ecf05e47a2tr7bodu3qa2vi5utkad20uyasr6vfcq6h244m1&ep=v1_stickers_search&rid=giphy.gif&ct=s'
     }
 ];
@@ -61,6 +61,7 @@ let clockID = 0
 // loadPlayers()
 
 
+// *ANCHOR -
 // #region - timing
 // function setPlayer(event) {
 //     event.preventDefault()
@@ -85,7 +86,7 @@ function startGame() {
     // document.getElementById('upgrades').classList.remove('hidden')
     // console.log("Let's go caviaring!")
     let caviar = 0
-    document.getElementById('totalMined').innerText = caviar.toString()
+    document.getElementById('totalMined').innerText = caviar.toFixed(0)
     clickUpgrades.forEach(upgrade => upgrade.quantity == 0)
     automaticUpgrades.forEach(upgrade => upgrade.quantity == 0)
     updateStats()
@@ -157,54 +158,64 @@ function stopGame() {
 
 function mine() {
     let clickPower = 1
-    let pickaxePower = 0
+    let speargunPower = 0
 
-    clickUpgrades.forEach(upgrade => pickaxePower += upgrade.multiplier * upgrade.quantity)
-    console.log(clickPower, pickaxePower)
-    caviar += clickPower + pickaxePower
-    // caviar += pickaxePower.multiplier
+    if (caviar == 0) {
+        startGame()
+    }
+
+    clickUpgrades.forEach(upgrade => speargunPower += upgrade.multiplier * upgrade.quantity)
+    console.log(clickPower, speargunPower)
+    caviar += clickPower + speargunPower
+    // caviar += speargunPower.multiplier
     // console.log('clicking moon')
 
     updateStats()
 }
 
 
-// #region - purchases
+// *ANCHOR -  #region - purchases
 
-function buyPickaxe() {
+function buySpeargun() {
     // do we have the resources?
     //  if yes, increase quant
     // if no, window alert
-    let pickaxe = clickUpgrades.find(upgrade => upgrade.name == 'pickaxe')
-    if (caviar >= pickaxe.price) {
+    let speargun = clickUpgrades.find(upgrade => upgrade.name == 'speargun')
+    if (caviar >= speargun.price) {
 
-        pickaxe.quantity++
-        caviar = caviar - pickaxe.price
-        pickaxe.price = (pickaxe.price * 2.1).toFixed(0)
+        speargun.quantity++
+        caviar = caviar - speargun.price
+        if (speargun.price < 10000) {
+            speargun.price = ((speargun.price * 2) ** 1.2).toFixed(0)
+        } else if (speargun.price >= 10000) { speargun.price = ((speargun.price * 2) ** 1.2).toExponential(4) }
+
 
         console.log("did the buy")
-    } else if (caviar < pickaxe.price) {
+    } else if (caviar < speargun.price) {
         window.alert("You're short on cheddar")
         console.log('buy failed');
     }
-    pickaxe.multiplier = pickaxe.multiplier * pickaxe.quantity
+    speargun.multiplier = speargun.multiplier * speargun.quantity
     updateStats()
 }
-function pickaxePower() {
-    let pickaxePower = clickUpgrades.find(upgrade => upgrade.name == 'titanium')
-    if (caviar >= pickaxePower.price) {
+function speargunPower() {
+    let speargunPower = clickUpgrades.find(upgrade => upgrade.name == 'titanium')
+    if (caviar >= speargunPower.price) {
 
-        pickaxePower.quantity++
-        caviar = caviar - pickaxePower.price
-        pickaxePower.price = (pickaxePower.price * 5.3).toFixed(0)
+        speargunPower.quantity++
+        caviar = caviar - speargunPower.price
+        if (speargunPower.price < 10000) {
+            speargunPower.price = ((speargunPower.price * 2.3) ** 1.5).toFixed(0)
+        } else if (speargunPower.price >= 10000) { speargunPower.price = ((speargunPower.price * 2.3) ** 1.5).toExponential(4) }
+
         console.log('reforged ax life')
-    } else if (caviar < pickaxePower.price) {
+    } else if (caviar < speargunPower.price) {
         window.alert('Too poor, more sore')
         console.log("Turned away at smithy's");
     }
-    let pickaxe = clickUpgrades.find(upgrade => upgrade.name == 'pickaxe')
+    let speargun = clickUpgrades.find(upgrade => upgrade.name == 'speargun')
 
-    pickaxe.multiplier = pickaxe.quantity * (pickaxe.multiplier + pickaxePower.multiplier)
+    speargun.multiplier = speargun.quantity * (speargun.multiplier + speargunPower.multiplier)
     updateStats()
 }
 
@@ -212,7 +223,10 @@ function buySashimi() {
     if (caviar >= purchase.price) {
         purchase.quantity++
         caviar = caviar - purchase.price
-        purchase.price = (purchase.price * 7)
+        if (purchase.price < 10000) { purchase.price = (purchase.price * 7).toFixed(0) }
+        else if (purchase.price >= 10000) {
+            purchase.price = (purchase.price * 7).toExponential(4)
+        }
         console.log("Opera-goers sing your praises");
     }
     else if (caviar < purchase.price) {
@@ -227,25 +241,29 @@ function buySashimi() {
 
 
 
-// #region - buy autos
+// *ANCHOR -  #region - buy autos
 
-function buyRover() {
-    let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
-    if (caviar >= rover.price) {
-        rover.quantity++
-        caviar = caviar - rover.price
-        rover.price = (rover.price * 4.1).toFixed(0)
+function buyPenguin() {
+    let penguin = automaticUpgrades.find(upgrade => upgrade.name == 'penguin')
+    if (caviar >= penguin.price) {
+        penguin.quantity++
+        caviar = caviar - penguin.price
+        if (penguin.price < 10000) {
+            penguin.price = (penguin.price * 2.8).toFixed(0)
+        } else if (penguin.price >= 10000) {
+            penguin.price = (penguin.price * 2.8).toExponential(4)
+        }
         console.log("Expanding into the managerial class")
-    } else if (caviar < rover.price) {
+    } else if (caviar < penguin.price) {
         window.alert("You're not ready to delegate work to others")
         console.log("Back to the grind")
     }
 
-    // rover.multiplier = rover.multiplier * rover.quantity
+    // penguin.multiplier = penguin.multiplier * penguin.quantity
     // *FIXME - need to add draw or update functions and stats, probably both
     //   ^DRAW EACH ALLY OUT IN OWN FUNCTION <-- PHOTOS MESS UP OTHERWISE
 
-    drawRover()
+    drawPenguin()
     updateStats()
 }
 
@@ -255,10 +273,14 @@ function polishFleet() {
     if (caviar >= fleet.price) {
         fleet.quantity++
         caviar = caviar - fleet.price
-        fleet.price = (fleet.price * 7.1).toFixed(0)
-        let rover = automaticUpgrades.find(upgrade => upgrade.name = 'rover')
+        if (fleet.price < 10000) {
+            fleet.price = (fleet.price * 6.8).toFixed(0)
+        } else if (fleet.price >= 10000) {
+            fleet.price = (fleet.price * 6.8).toExponential(4)
+        }
+        let penguin = automaticUpgrades.find(upgrade => upgrade.name = 'penguin')
 
-        rover.multiplier = rover.multiplier + (fleet.quantity * fleet.booster)
+        penguin.multiplier = penguin.multiplier + (fleet.quantity * (fleet.booster) ** 1.8)
         console.log("Wax on, wax off");
     } else if (caviar < fleet.price) {
         window.alert("Have you tried our competitors?")
@@ -272,10 +294,10 @@ function polishFleet() {
 
 //  will need get elem by id to be placed correctly
 
-// function applyRover() {
-//     let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
-//     if (rover.quantity > 0) {
-//         caviar += rover.multiplier
+// function applyPenguin() {
+//     let penguin = automaticUpgrades.find(upgrade => upgrade.name == 'penguin')
+//     if (penguin.quantity > 0) {
+//         caviar += penguin.multiplier
 //     }
 //     updateStats()
 // }
@@ -298,17 +320,20 @@ function polishFleet() {
 //     updateStats()
 // }
 
+//  *ANCHOR - 
+//  #region - draws
 // * FIXME - collective draw (failed)
-function drawRover() {
+
+function drawPenguin() {
 
 
     let autosTemplate = ``
-    let rover = automaticUpgrades.find(auto => auto.name == 'rover')
-    if (rover.quantity >= 1) {
+    let penguin = automaticUpgrades.find(auto => auto.name == 'penguin')
+    if (penguin.quantity >= 1) {
         autosTemplate += `
         <div class="col-3 text-center">
-<div>${rover.name}</div>
-<img class="autos-card" src="${rover.img}" alt="">
+<div>${penguin.name}</div>
+<img class="autos-card" src="${penguin.img}" alt="">
 </div>
 `
 
@@ -375,23 +400,27 @@ function applyAutos() {
     // }
 
     // caviar += autoPower
-    let rover = automaticUpgrades.find(auto => auto.name == 'rover')
+    let penguin = automaticUpgrades.find(auto => auto.name == 'penguin')
     // automaticUpgrades.forEach(auto =>
     {
-        if (rover.quantity >= 1) {
-            autoPower += rover.multiplier * rover.quantity
+        if (penguin.quantity >= 1) {
+            autoPower += penguin.multiplier * penguin.quantity
             // caviar += autoPower
             // document.getElementById('autoMining').innerText = autoPower.toString()
             caviar += autoPower
         }
-        // else if (rover.quantity > 1) {      }
-        //     autoPower += rover.multiplier    }<---back when I tried to combine auto upgrades
+        // else if (penguin.quantity > 1) {      }
+        //     autoPower += penguin.multiplier    }<---back when I tried to combine auto upgrades
         //     caviar += autoPower             }
         // }
         // debugger
     }
+    if (caviar < 10000) {
+        document.getElementById('autoMining').innerText = autoPower.toFixed(0)
+    } else if (caviar >= 10000) {
+        document.getElementById('autoMining').innerText = autoPower.toExponential(4)
+    }
 
-    document.getElementById('autoMining').innerText = autoPower.toString()
     // autoPower == auto.quantity * auto.multiplier)
     // caviar += autoPower
 
@@ -399,31 +428,38 @@ function applyAutos() {
 }
 
 function updateStats() {
-    let pickaxe = clickUpgrades.find(upgrade => upgrade.name == 'pickaxe')
+    let speargun = clickUpgrades.find(upgrade => upgrade.name == 'speargun')
     let titanium = clickUpgrades.find(upgrade => upgrade.name == 'titanium')
-    let rover = automaticUpgrades.find(auto => auto.name == 'rover')
+    let penguin = automaticUpgrades.find(auto => auto.name == 'penguin')
     let fleet = automaticUpgrades.find(auto => auto.name == 'fleet')
     let clickPower = 1
 
-    // clickUpgrades.forEach(upgrade => upgrade.multiplier == rover.multiplier + fleet.multiplier)
+    // clickUpgrades.forEach(upgrade => upgrade.multiplier == penguin.multiplier + fleet.multiplier)
     // document.getElementById('autos').innerText = clickUpgrades.toString()
     //  ^ try to get this to work later in refactoring
     // debugger
-    document.getElementById('totalMined').innerText = caviar.toString()
-    document.getElementById('minedPerClick').innerText = (clickPower + (pickaxe.quantity * pickaxe.multiplier)).toString()
-    // document.getElementById('autoMining').innerText = ((rover.multiplier) + (fleet.multiplier)).toString()
+    if (caviar < 10000) {
+        document.getElementById('totalMined').innerText = caviar.toFixed(0)
+        document.getElementById('minedPerClick').innerText = (clickPower + (speargun.quantity * speargun.multiplier)).toFixed(0)
+    }
+    else if (caviar >= 10000) {
+        document.getElementById('totalMined').innerText = caviar.toExponential(4)
+        document.getElementById('minedPerClick').innerText = (clickPower + (speargun.quantity * speargun.multiplier)).toExponential(4)
+    }
+
+    // document.getElementById('autoMining').innerText = ((penguin.multiplier) + (fleet.multiplier)).toString()
 
 
-    document.getElementById('totalPickaxes').innerText = pickaxe.quantity.toString()
-    document.getElementById('pickaxePower').innerText = titanium.quantity.toString()
+    document.getElementById('totalSpearguns').innerText = speargun.quantity.toString()
+    document.getElementById('speargunPower').innerText = titanium.quantity.toString()
 
-    document.getElementById('costNext').innerText = pickaxe.price.toString()
+    document.getElementById('costNext').innerText = speargun.price.toString()
     document.getElementById('costNextForge').innerText = titanium.price.toString()
-    document.getElementById('costNextPenguin').innerText = rover.price.toString()
+    document.getElementById('costNextPenguin').innerText = penguin.price.toString()
     document.getElementById('costNextShip').innerText = fleet.price.toString()
     document.getElementById('costNextSashimi').innerText = purchase.price.toString()
 
-    document.getElementById('penguinTotal').innerText = rover.quantity.toString()
+    document.getElementById('penguinTotal').innerText = penguin.quantity.toString()
     document.getElementById('fleetTotal').innerText = fleet.quantity.toString()
     document.getElementById('sashimiTotal').innerText = purchase.quantity.toString()
 
@@ -438,6 +474,6 @@ function updateStats() {
 
 
 setInterval(applyAutos, 3000)
-// if (pickaxe.quantity % 4 == 0) {
-//     pickaxe.multiplier = (pickaxe.multiplier * 1.5)
+// if (speargun.quantity % 4 == 0) {
+//     speargun.multiplier = (speargun.multiplier * 1.5)
 // }

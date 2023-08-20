@@ -98,56 +98,57 @@
 
 
         </section>
-        <section class="row text-center justify-content-between">
-            <span class="col-2">
+
+        <section class="row text-center justify-content-center">
+            <!-- <span class="col-2">
                 <button class="start" onclick="startGame()">S T A R T</button>
-            </span>
+            </span> -->
             <h2 class="col-md-5 col-7 my-0 signage">
                 All that is Mine
             </h2>
-            <span class="col-2">
+            <!-- <span class="col-2">
                 <button class="reset" onclick="gameReset()">R E S E T</button>
-            </span>
+            </span> -->
         </section>
 
         <section id="upgrades" class="row shop-card game ">
 
 
             <div class="row justify-content-between">
-                <div class="col-md-2 col-4 pt-2">
-                    <h4 class=""> Pickaxes:
-                        <span id="totalPickaxes"></span>
+                <div class="col-md-3 col-4 pt-2">
+                    <h4 class=""> Spearguns:
+                        <span id="totalSpearguns"></span>
                     </h4>
-                    <button onclick="buyPickaxe()">
-                        Buy Pickaxe
+                    <button onclick="buySpeargun()">
+                        Buy Speargun
                     </button>
-                    $<span id="costNext"></span>
+                    Caviar:<span id="costNext"></span>
 
                     <h4 class=" py-2">
-                        Trips to Smithy: <span id="pickaxePower"></span>
+                        Trips to Smithy: <span id="speargunPower"></span>
 
                     </h4>
-                    <button onclick="pickaxePower()">
+                    <button onclick="speargunPower()">
                         Reforge
                     </button>
-                    $<span id="costNextForge"></span>
+                    Caviar:<span id="costNextForge"></span>
                 </div>
 
                 <div class="col-md-3 col-4 pt-2">
                     <h4 class="">
                         The Winter Warrior x<span id="penguinTotal"></span>
                     </h4>
-                    <button onclick="buyRover()">
+                    <button onclick="buyPenguin()">
                         Buy
                     </button>
-                    $<span id="costNextPenguin"></span>
+                    Caviar:<span id="costNextPenguin"></span>
                     <h4 class="py-2">
                         Her Henship x<span id="fleetTotal"></span>
                     </h4>
                     <button onclick="polishFleet()">
                         Buy
                     </button>
-                    $<span id="costNextShip"></span>
+                    Caviar:<span id="costNextShip"></span>
                 </div>
 
                 <div class="col-md-3 col-4 py-t">
@@ -157,7 +158,7 @@
                     <button onclick="buySashimi()">
                         Provide Sashimi
                     </button>
-                    $<span id="costNextSashimi"></span>
+                    Caviar:<span id="costNextSashimi"></span>
                     <div class="row" id="drawSashimi"></div>
                     <!-- <h4 class="py-2">
                         Her Henship x<span id="fleetTotal"></span>
@@ -171,14 +172,7 @@
         </section>
 
     </main>
-
-
-
-
-
-
-
-
+    <footer></footer>
 
     <script src="main.js"></script>
 </body>

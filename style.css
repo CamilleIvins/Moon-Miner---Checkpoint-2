@@ -47,7 +47,7 @@ h4 {
     background-position: center;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    bottom: 0;
+    bottom: 0 !important;
     color: black;
 }
 
@@ -116,7 +116,6 @@ button:hover {
 
     .clickMe {
         filter: hue-rotate(137deg);
-        height: 60vh;
     }
 
     .shop-card {
@@ -175,8 +174,8 @@ button:hover {
 .start {
     font-family: 'Bagel Fat One', cursive;
     text-shadow: 0 1px 1px black;
-    position: absolute;
-    left: 0;
+
+
 }
 
 .text-general {
