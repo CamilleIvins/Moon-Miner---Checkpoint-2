@@ -45,7 +45,8 @@ h4 {
     background-image: url(https://images.unsplash.com/photo-1534680554819-83f7124bcfc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80);
     background-size: cover;
     background-position: center;
-    border-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     bottom: 0;
     color: black;
 }
@@ -65,6 +66,11 @@ button:hover {
 
 }
 
+.clickMe {
+    filter: hue-rotate(137deg);
+    height: 35vh;
+}
+
 .hidden {
     display: none;
 }
@@ -74,9 +80,9 @@ button:hover {
 }
 
 #target {
-    filter: hue-rotate(137deg);
     height: 35vh;
 }
+
 
 @media (min-width: 768px) {
     button {
@@ -84,12 +90,15 @@ button:hover {
         padding: .5em;
     }
 
+    h4 {
+        font-size: 24px;
+    }
+
     section.shop-card {
         font-size: large;
     }
 
     #target {
-        filter: hue-rotate(137deg);
         height: 60vh;
     }
 
@@ -98,15 +107,21 @@ button:hover {
 
     }
 
+    .clickMe {
+        filter: hue-rotate(137deg);
+        height: 60vh;
+    }
+
     .shop-card {
         /* background-color: var(--bgFooter); */
         background-image: url(https://images.unsplash.com/photo-1447953696461-df240a5320a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80);
         background-size: cover;
         background-position-y: 630px;
-        /* background-position: center; */
-        border-radius: 15px;
-        height: 40vh;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        height: 37vh;
         bottom: 0;
+        padding-top: .5em;
     }
 
     .signage {
@@ -115,14 +130,28 @@ button:hover {
         background-color: var(--pinkSky) !important;
         color: black;
         font-family: 'Bagel Fat One', cursive;
+        font-size: 36px !important;
         text-shadow: 0 1px 1px black;
     }
 
     .text-special {
         font-family: 'Bagel Fat One', cursive;
         text-shadow: 0 3px 7px black;
-        font-size: 54px;
+        font-size: 72px !important;
     }
+}
+
+.reset {
+    /* text-shadow: 0 1px 1px black; */
+    background-color: rgb(255, 0, 102);
+    font-family: 'Bagel Fat One', cursive;
+    position: absolute;
+    right: 0;
+}
+
+.reset:hover {
+    box-shadow: 0 0 10px 3px #ff002f,
+        inset 0 0 10px 3px #ff002f;
 }
 
 .signage {
@@ -131,7 +160,16 @@ button:hover {
     background-color: var(--cloudySky);
     color: black;
     font-family: 'Bagel Fat One', cursive;
+    font-size: x-large;
+    position: relative;
     text-shadow: 0 1px 1px black;
+}
+
+.start {
+    font-family: 'Bagel Fat One', cursive;
+    text-shadow: 0 1px 1px black;
+    position: absolute;
+    left: 0;
 }
 
 .text-general {

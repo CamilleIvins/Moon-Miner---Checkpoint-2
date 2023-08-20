@@ -37,7 +37,7 @@ let automaticUpgrades = [
 let purchase =
 {
     name: 'sashimi',
-    price: 10000,
+    price: 8000,
     quantity: 0,
 
     img: 'https://media0.giphy.com/media/XIoaQjPAWLITuiz2XN/giphy.gif?cid=ecf05e47vl18pfz6bh8yc8uhsy25nnbqwgd8b94tj6j6ji0j&ep=v1_stickers_search&rid=giphy.gif&ct=s'
@@ -46,38 +46,96 @@ let purchase =
 // *FIXME - this needs serious refactoring, hahaha
 
 let fish = 0
-let gameLength = 120000
+let gameLength = 180000
 let timeRemaining = 0
-let players = []
-let currentPlayer = {}
-loadPlayers()
+let clockID = 0
+// let players = []
+// let currentPlayer = {}
+// loadPlayers()
 
 
 // #region - timing
-function setPlayer(event) {
-    event.preventDefault()
-    let form = event.target
+// function setPlayer(event) {
+//     event.preventDefault()
+//     let form = event.target
 
-    let playerName = form.playerName.value
-    currentPlayer = players.find(player => player.name == playerName)
+//     let playerName = form.playerName.value
+//     currentPlayer = players.find(player => player.name == playerName)
 
-    if (!currentPlayer) {
-        currentPlayer = { name: playerName, topScore: 0 }
-        players.push(currentPlayer)
-        savePlayers()
-    }
-    form.reset()
+//     if (!currentPlayer) {
+//         currentPlayer = { name: playerName, topScore: 0 }
+//         players.push(currentPlayer)
+//         savePlayers()
+//     }
+//     form.reset()
 
-    document.getElementById('target').classList.remove('hidden')
-    document.getElementById('upgrades').classList.remove('hidden')
-    console.log("Let's go fishing!")
-    document.getElementById('player-form').classList.add('hidden')
+//     document.getElementById('player-form').classList.add('hidden')
 
-}
+// }
 
 function startGame() {
+    // document.getElementById('target').classList.remove('hidden')
+    // document.getElementById('upgrades').classList.remove('hidden')
+    // console.log("Let's go fishing!")
+    let fish = 0
+    document.getElementById('totalMined').innerText = fish.toString()
+    clickUpgrades.forEach(upgrade => upgrade.quantity == 0)
+    automaticUpgrades.forEach(upgrade => upgrade.quantity == 0)
+    updateStats()
+    startClock()
+    setTimeout(stopGame, gameLength)
 }
 
+function startClock() {
+    let fish = 0
+    timeRemaining = gameLength
+    drawClock()
+    clockID = setInterval(drawClock, 1000)
+}
+
+function stopClock() {
+    clearInterval(clockID)
+}
+
+function drawClock() {
+    let countdownElem = document.getElementById('countdown')
+    countdownElem.innerText = (timeRemaining / 1000).toString()
+    timeRemaining -= 1000
+}
+
+function stopGame() {
+    window.alert("The curtain is rising!")
+    let endTemplate = ``
+
+    if (purchase.quantity >= 10) {
+        window.alert("Congratulations, you did it!")
+        endTemplate += `
+        <img src="https://media3.giphy.com/media/bW7WgIA6WBxXVYAXub/giphy.gif?cid=ecf05e47hdof96ftfhcevpoyfak0qiymfw8qi8vhvxgywslz&ep=v1_gifs_related&rid=giphy.gif&ct=g">
+        `
+    } else if (purchase.quantity < 10) {
+        window.alert("The director would like a word...")
+        endTemplate += `
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWs3MDV3NnYybHljcmlwMTV3N2NsZzY3Z2VseWlnaXR5b2swMjg0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/loSCq3ARI8HGnVAMqk/giphy.gif">
+        `
+    }
+    document.getElementById('target').innerHTML = endTemplate
+    stopClock()
+}
+
+// *FIXME - poorly functioning pass at logic
+
+function gameReset() {
+
+    let fish = 0
+    document.getElementById('totalMined').innerText = fish.toString()
+    clickUpgrades.forEach(upgrade => upgrade.quantity = 0)
+    automaticUpgrades.forEach(upgrade => upgrade.quantity = 0)
+    // let countdownElem = document.getElementById('countdown')
+    // document.getElementById('autoMining').innerText = autoPower.toString()
+    // countdownElem.innerText = countdownElem.toString()
+    timeRemaining = gameLength
+    clearInterval(clockID)
+}
 // #endregion
 
 function mine() {
