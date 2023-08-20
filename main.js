@@ -1,3 +1,5 @@
+// #region - arrays and objects
+
 let clickUpgrades = [
     {
         name: 'pickaxe',
@@ -40,11 +42,43 @@ let purchase =
 
     img: 'https://media0.giphy.com/media/XIoaQjPAWLITuiz2XN/giphy.gif?cid=ecf05e47vl18pfz6bh8yc8uhsy25nnbqwgd8b94tj6j6ji0j&ep=v1_stickers_search&rid=giphy.gif&ct=s'
 }
-
+// #endregion
 // *FIXME - this needs serious refactoring, hahaha
 
-let cheese = 100000
+let fish = 0
+let gameLength = 120000
+let timeRemaining = 0
+let players = []
+let currentPlayer = {}
+loadPlayers()
 
+
+// #region - timing
+function setPlayer(event) {
+    event.preventDefault()
+    let form = event.target
+
+    let playerName = form.playerName.value
+    currentPlayer = players.find(player => player.name == playerName)
+
+    if (!currentPlayer) {
+        currentPlayer = { name: playerName, topScore: 0 }
+        players.push(currentPlayer)
+        savePlayers()
+    }
+    form.reset()
+
+    document.getElementById('target').classList.remove('hidden')
+    document.getElementById('upgrades').classList.remove('hidden')
+    console.log("Let's go fishing!")
+    document.getElementById('player-form').classList.add('hidden')
+
+}
+
+function startGame() {
+}
+
+// #endregion
 
 function mine() {
     let clickPower = 1
@@ -52,8 +86,8 @@ function mine() {
 
     clickUpgrades.forEach(upgrade => pickaxePower += upgrade.multiplier * upgrade.quantity)
     console.log(clickPower, pickaxePower)
-    cheese += clickPower + pickaxePower
-    // cheese += pickaxePower.multiplier
+    fish += clickPower + pickaxePower
+    // fish += pickaxePower.multiplier
     // console.log('clicking moon')
 
     updateStats()
@@ -67,14 +101,14 @@ function buyPickaxe() {
     //  if yes, increase quant
     // if no, window alert
     let pickaxe = clickUpgrades.find(upgrade => upgrade.name == 'pickaxe')
-    if (cheese >= pickaxe.price) {
+    if (fish >= pickaxe.price) {
 
         pickaxe.quantity++
-        cheese = cheese - pickaxe.price
+        fish = fish - pickaxe.price
         pickaxe.price = (pickaxe.price * 2.1).toFixed(0)
 
         console.log("did the buy")
-    } else if (cheese < pickaxe.price) {
+    } else if (fish < pickaxe.price) {
         window.alert("You're short on cheddar")
         console.log('buy failed');
     }
@@ -83,13 +117,13 @@ function buyPickaxe() {
 }
 function pickaxePower() {
     let pickaxePower = clickUpgrades.find(upgrade => upgrade.name == 'titanium')
-    if (cheese >= pickaxePower.price) {
+    if (fish >= pickaxePower.price) {
 
         pickaxePower.quantity++
-        cheese = cheese - pickaxePower.price
+        fish = fish - pickaxePower.price
         pickaxePower.price = (pickaxePower.price * 5.3).toFixed(0)
         console.log('reforged ax life')
-    } else if (cheese < pickaxePower.price) {
+    } else if (fish < pickaxePower.price) {
         window.alert('Too poor, more sore')
         console.log("Turned away at smithy's");
     }
@@ -100,13 +134,13 @@ function pickaxePower() {
 }
 
 function buySashimi() {
-    if (cheese >= purchase.price) {
+    if (fish >= purchase.price) {
         purchase.quantity++
-        cheese = cheese - purchase.price
+        fish = fish - purchase.price
         purchase.price = (purchase.price * 7)
         console.log("Opera-goers sing your praises");
     }
-    else if (cheese < purchase.price) {
+    else if (fish < purchase.price) {
         window.alert("You can't serve such a trifling amount to opera-goers!")
         console.log("We cast at dawn!");
     }
@@ -122,12 +156,12 @@ function buySashimi() {
 
 function buyRover() {
     let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
-    if (cheese >= rover.price) {
+    if (fish >= rover.price) {
         rover.quantity++
-        cheese = cheese - rover.price
+        fish = fish - rover.price
         rover.price = (rover.price * 4.1).toFixed(0)
         console.log("Expanding into the managerial class")
-    } else if (cheese < rover.price) {
+    } else if (fish < rover.price) {
         window.alert("You're not ready to delegate work to others")
         console.log("Back to the grind")
     }
@@ -143,15 +177,15 @@ function buyRover() {
 function polishFleet() {
     let fleet = automaticUpgrades.find(upgrade => upgrade.name == 'fleet')
 
-    if (cheese >= fleet.price) {
+    if (fish >= fleet.price) {
         fleet.quantity++
-        cheese = cheese - fleet.price
+        fish = fish - fleet.price
         fleet.price = (fleet.price * 7.1).toFixed(0)
         let rover = automaticUpgrades.find(upgrade => upgrade.name = 'rover')
 
         rover.multiplier = rover.multiplier + (fleet.quantity * fleet.booster)
         console.log("Wax on, wax off");
-    } else if (cheese < fleet.price) {
+    } else if (fish < fleet.price) {
         window.alert("Have you tried our competitors?")
         console.log("Still striving")
     }
@@ -166,7 +200,7 @@ function polishFleet() {
 // function applyRover() {
 //     let rover = automaticUpgrades.find(upgrade => upgrade.name == 'rover')
 //     if (rover.quantity > 0) {
-//         cheese += rover.multiplier
+//         fish += rover.multiplier
 //     }
 //     updateStats()
 // }
@@ -174,12 +208,12 @@ function polishFleet() {
 // function buyAutos(upgradeName) {
 
 //     let autos = automaticUpgrades.find(upgrade => upgrade.name = upgradeName)
-//     if (cheese >= autos.price) {
+//     if (fish >= autos.price) {
 //         autos.quantity++
-//         cheese = cheese - autos.price
+//         fish = fish - autos.price
 //         autos.price = (autos.price * 4.1).toFixed(0)
 //         console.log("Expanding into the managerial class")
-//     } else if (cheese < autos.price) {
+//     } else if (fish < autos.price) {
 //         window.alert("You're not ready to delegate work to others")
 //         console.log("Back to the grind")
 //     }
@@ -265,26 +299,26 @@ function applyAutos() {
     //     autoPower += upgrade.quantity * upgrade.multiplier
     // }
 
-    // cheese += autoPower
+    // fish += autoPower
     let rover = automaticUpgrades.find(auto => auto.name == 'rover')
     // automaticUpgrades.forEach(auto =>
     {
         if (rover.quantity >= 1) {
             autoPower += rover.multiplier * rover.quantity
-            // cheese += autoPower
+            // fish += autoPower
             // document.getElementById('autoMining').innerText = autoPower.toString()
-            cheese += autoPower
+            fish += autoPower
         }
         // else if (rover.quantity > 1) {      }
         //     autoPower += rover.multiplier    }<---back when I tried to combine auto upgrades
-        //     cheese += autoPower             }
+        //     fish += autoPower             }
         // }
         // debugger
     }
 
     document.getElementById('autoMining').innerText = autoPower.toString()
     // autoPower == auto.quantity * auto.multiplier)
-    // cheese += autoPower
+    // fish += autoPower
     console.log(autoPower);
 
     updateStats()
@@ -301,7 +335,7 @@ function updateStats() {
     // document.getElementById('autos').innerText = clickUpgrades.toString()
     //  ^ try to get this to work later in refactoring
     // debugger
-    document.getElementById('totalMined').innerText = cheese.toString()
+    document.getElementById('totalMined').innerText = fish.toString()
     document.getElementById('minedPerClick').innerText = (clickPower + (pickaxe.quantity * pickaxe.multiplier)).toString()
     // document.getElementById('autoMining').innerText = ((rover.multiplier) + (fleet.multiplier)).toString()
 
@@ -319,11 +353,11 @@ function updateStats() {
     document.getElementById('fleetTotal').innerText = fleet.quantity.toString()
     document.getElementById('sashimiTotal').innerText = purchase.quantity.toString()
 
-    ///find latest cheese count
-    // draw updated cheese count to screen
+    ///find latest fish count
+    // draw updated fish count to screen
     // let keyStatsElem = document.getElementById('updateStats')
-    // keyStatsElem = `Cheese: ${cheese}
-    // <div>Cheese Spent: Inset string w/ cheese - purchases</div>
+    // keyStatsElem = `fish: ${fish}
+    // <div>fish Spent: Inset string w/ fish - purchases</div>
     // <div>Click Level: ${clickUpgrades.multiplier}</div>
     // <div></div>`
 }

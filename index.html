@@ -12,6 +12,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&family=Laila:wght@500&family=Montserrat:ital,wght@1,300&family=Pacifico&family=Bagel+Fat+One&family=Tangerine:wght@700&family=Tektur&family=Vollkorn&display=swap"
         rel="stylesheet">
+    "
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
 
     <title>Moon Miner</title>
@@ -56,6 +60,19 @@
 
 
     <main class="container-fluid text-white text-general">
+        <!-- set players via form DO LAST, look at Balloon Pop -->
+
+        <form id="player-form" class="welcome space-between" onsubmit="setPlayer(event)">
+            <div>
+                <label for="name">
+                    <i class="fa-duotone fa-feather-pointed" aria-hidden="true"></i>
+                    <span>Player Name:</span>
+                    <input type="text" name="playerName">
+                </label>
+            </div>
+            <button type="submit" onclick="startGame()">Start</button>
+        </form>
+
         <!-- *SECTION - make three pillars: upgrades draw, moon, and stats bar -->
         <!-- make vh for this bulk of screen -->
         <section class="row justify-content-between mx-0">
@@ -67,7 +84,7 @@
 
             </div>
             <div class="col-md-6 col-12 text-center">
-                <img id="target"
+                <img id="target" class="hidden"
                     src="https://media3.giphy.com/media/0DPpTJnXxmUHZGA8ez/giphy.gif?cid=ecf05e47cbhsuxnr881ixbwg7c01dj4w654zc92an9mmnjl7&ep=v1_stickers_search&rid=giphy.gif&ct=s"
                     onclick="mine()" alt="">
             </div>
@@ -88,7 +105,7 @@
             </h2>
         </section>
 
-        <section class="row shop-card">
+        <section id="upgrades" class="row shop-card game hidden">
 
 
             <div class="row justify-content-between">

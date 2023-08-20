@@ -21,6 +21,15 @@ h4 {
     font-size: medium;
 }
 
+.welcome {
+    background-color: var(--bgCard);
+    border-radius: 20px;
+    color: var(--cloudySky);
+    height: 40vh;
+    text-shadow: 0 1px 1px var(--pinkSky);
+    width: 45vw;
+}
+
 .item-card {
     background-color: var(--bgCard);
     padding: 5px;
@@ -54,6 +63,10 @@ button:hover {
 .autos-card {
     height: 8vh;
 
+}
+
+.hidden {
+    display: none;
 }
 
 .icon {
