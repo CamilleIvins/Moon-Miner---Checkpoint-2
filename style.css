@@ -102,7 +102,7 @@ button:hover {
     }
 
     #target {
-        height: 60vh;
+        height: 45vh;
     }
 
     #updateStats {
@@ -116,6 +116,10 @@ button:hover {
 
     .clickMe {
         filter: hue-rotate(137deg);
+    }
+
+    .icon {
+        height: 72px;
     }
 
     .shop-card {
